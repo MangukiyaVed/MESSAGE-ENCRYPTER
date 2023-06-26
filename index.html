@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SECRET MSG CONVERTER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    
+    h1 {
+      color: #333;
+      text-align: center;
+      margin: 20px 0;
+    }
+    
+    .container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    
+    .inner-container {
+      max-width: 400px;
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    
+    .btn-container {
+      text-align: center;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #45a049;
+    }
+    
+    .result-box {
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: auto;
+      max-height: 200px;
+    }
+    
+    .result-text {
+      margin: 0;
+      color: #2196f3;
+      text-align: center;
+    }
+    
+    .author-info {
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .version-info {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="inner-container">
+      <h3 style="color: #2196f3;">Convert your readable message into non-readable message</h3>
+      <div id="passwordPage">
+        <label for="password" style="color: #333;">Enter the password:</label>
+        <input type="password" id="password">
+        <div class="btn-container">
+          <button onclick="checkPassword()" class="btn">Submit</button>
+        </div>
+      </div>
+      <div id="converterPage" style="display: none;">
+        <label for="inputText" style="color: #333;">Enter a sentence or secret code:</label>
+        <input type="text" id="inputText">
+        <div class="btn-container">
+          <button onclick="encryptInput()" class="btn" style="background-color: #2196f3;">Encrypt</button>
+          <button onclick="decryptInput()" class="btn" style="background-color: #f44336;">Decrypt</button>
+        </div>
+        <div class="result-box">
+          <p class="result-text" id="result"></p>
+        </div>
+        <p class="author-info">Created by Mangukiya Ved on 25-06-2023</p>
+        <p class="author-info">CODING LANGUAGES USED: HTML, CSS, and JAVASCRIPT</p>
+        <p class="version-info">Version 1.1</p>
+        <div class="btn-container">
+          <button onclick="redirectToAboutPage()" class="btn" style="background-color: #000000;">About us</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById("password").value;
+      if (password === "4561") {
+        document.getElementById("passwordPage").style.display = "none";
+        document.getElementById("converterPage").style.display = "block";
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    }
+
+    function encryptInput() {
+      const inputText = document.getElementById("inputText").value;
+      const secretKey = "your_secret_key"; // Replace with your secret key
+      const encryptedText = CryptoJS.AES.encrypt(inputText, secretKey).toString();
+      document.getElementById("result").innerHTML = "<span style='color: #333; text-decoration: none; font-weight: bold;'>Encrypted: " + encryptedText + "</span>";
+    }
+
+    function decryptInput() {
+      const inputText = document.getElementById("inputText").value;
+      const secretKey = "your_secret_key"; // Replace with your secret key
+      const decryptedText = CryptoJS.AES.decrypt(inputText, secretKey).toString(CryptoJS.enc.Utf8);
+      document.getElementById("result").innerHTML = "<span style='color: #333; text-decoration: none; font-weight: bold;'>Decrypted: " + decryptedText + "</span>";
+    }
+    
+    function redirectToAboutPage() {
+      window.location.href = "about.html";
+    }
+  </script>
+</body>
+</html>
